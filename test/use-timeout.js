@@ -1,9 +1,9 @@
 'use strict';
 
-const test = require('tape')
 const toro = require('..')
+const assert = require('assert')
+const request = require('supertest')
 
-test('app.useTimeout', function (t) {
-    // TODO
-    t.end()
+describe('app.useTimeout', function () {
+    it('should looks fine')
 })

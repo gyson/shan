@@ -1,9 +1,9 @@
 'use strict';
 
-const test = require('tape')
 const toro = require('..')
+const assert = require('assert')
+const request = require('supertest')
 
-test('app.useFavicon', function (t) {
-    // TODO
-    t.end()
+describe('app.useFavicon', function () {
+    it('should be able to serve favicon.ico')
 })

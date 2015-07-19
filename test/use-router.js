@@ -1,9 +1,9 @@
 'use strict';
 
-const test = require('tape')
 const toro = require('..')
+const assert = require('assert')
+const request = require('supertest')
 
-test('app.useRouter', function (t) {
-    // TODO
-    t.end()
+describe('app.useRouter', function () {
+    it('should works')
 })

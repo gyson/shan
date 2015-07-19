@@ -1,10 +1,9 @@
 'use strict';
 
-const test = require('tape')
 const toro = require('..')
-const path = require('path')
+const assert = require('assert')
+const request = require('supertest')
 
-test('app.useStatic', function (t) {
-    // TODO
-    t.end()
+describe('app.useStatic', function () {
+    it('should pending')
 })
