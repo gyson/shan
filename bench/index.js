@@ -14,7 +14,10 @@ console.log(`
     Machine:    ${os.platform()}, ${os.arch()}, ${cpus[0].model} x ${cpus.length}
     Nodejs:     ${process.versions.node}
     V8:         ${process.versions.v8}
-`)
+
+## note
+
+* All tests use \`bluebird\` as Promise polyfill`)
 
 const PORT = 5555
 
