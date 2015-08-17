@@ -36,17 +36,13 @@ function run(filename, mw) {
 
         sleep 2
 
-        wrk 'http://localhost:${PORT}/hello' -d 5 -c 50 -t 8 | grep 'Requests/sec'
+        wrk 'http://localhost:${PORT}/hello' -d 5 -c 50 -t 8
 
         kill $pid
     `, {
-        //
-        // ignore stderr, remove annoy message like
-        // A promise was converted into a generator, which is an anti-pattern. Please avoid using `yield* next`!
-        // where error occured in koa/lib/application.js
-        //
+        cwd: __dirname,
         //      stdin     stdout  stderr
-        stdio: ['ignore', 'pipe', 'ignore']
+        stdio: ['ignore', 'pipe', 'pipe']
     })
 }
 
@@ -58,10 +54,22 @@ function bench(filelist) {
         process.stdout.write('| ' + filename.split(path.sep).slice(-2).join('/'))
 
         for (let i of [0, 20, 40, 60, 80, 100]) {
-            let output = run(filename, i)
-            let result = /\d+(?:.\d+)?/.exec(output)[0]
+            let output = run(filename, i).toString()
 
-            process.stdout.write(' | ' + result)
+            let requestsPerSecond
+            let requestsAvgLatency
+
+            output.split('\n').forEach(function (line) {
+                let tokens = line.trim().split(/\s+/)
+                if (tokens[0] === 'Requests/sec:') {
+                    requestsPerSecond = tokens[1]
+                }
+                if (tokens[0] === 'Latency') {
+                    requestsAvgLatency = tokens[1]
+                }
+            })
+
+            process.stdout.write(' | ' + requestsPerSecond + ' : ' + requestsAvgLatency)
         }
         process.stdout.write(' |\n')
     }
@@ -70,13 +78,13 @@ function bench(filelist) {
 console.log(`
 ## bench middleware
 
-use \`wrk\` to test the \`Requests/sec\` for 0, 20, 40, 60, 80, 100 noop middleware.
+use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 20, 40, 60, 80, 100 noop middleware.
 `)
 bench(glob.sync(path.join(__dirname, 'middleware/*/*')))
 
 console.log(`
 ## bench early-stop
 
-use \`wrk\` to test the \`Requests/sec\` for 0, 20, 40, 60, 80, 100 noop middleware.
+use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 20, 40, 60, 80, 100 noop middleware.
 `)
 bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
