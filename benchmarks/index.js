@@ -17,7 +17,8 @@ console.log(`
 
 ## note
 
-* All tests use \`bluebird\` as Promise polyfill`)
+* all tests use \`bluebird\` as Promise polyfill`)
+* all tests with async-await function using babeljs
 
 const PORT = 5555
 
@@ -80,6 +81,8 @@ console.log(`
 
 use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 20, 40, 60, 80, 100 noop middleware.
 `)
+
+// modify glob to test individual cases
 bench(glob.sync(path.join(__dirname, 'middleware/*/*')))
 
 console.log(`
@@ -87,4 +90,6 @@ console.log(`
 
 use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 20, 40, 60, 80, 100 noop middleware.
 `)
+
+// modify glob to test individual case
 bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
