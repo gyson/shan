@@ -17,8 +17,8 @@ console.log(`
 
 ## note
 
-* all tests use \`bluebird\` as Promise polyfill`)
-* all tests with async-await function using babeljs
+* all tests use \`bluebird\` as Promise polyfill
+* all tests with async-await function using babeljs`)
 
 const PORT = 5555
 
