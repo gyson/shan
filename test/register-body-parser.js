@@ -1,13 +1,13 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.registerBodyParser', function () {
     describe('context.parse("raw")', function () {
         it('should return Promise<Buffer>', function (done) {
-            let app = toro()
+            let app = shan()
 
             app.registerBodyParser()
 
@@ -34,7 +34,7 @@ describe('app.registerBodyParser', function () {
 
     describe('context.parse("text")', function () {
         it('should return Promise<String>', function (done) {
-            let app = toro()
+            let app = shan()
 
             app.registerBodyParser()
 
@@ -59,7 +59,7 @@ describe('app.registerBodyParser', function () {
 
     describe('context.parse("json")', function () {
         it('should return Promise<JSON>', function (done) {
-            let app = toro()
+            let app = shan()
 
             app.registerBodyParser()
 

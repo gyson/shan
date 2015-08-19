@@ -1,13 +1,13 @@
 'use strict';
 
 const fs = require('fs')
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.registerFileServer', function () {
     it('should be able to serve file', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.registerFileServer({
             // root: path

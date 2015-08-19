@@ -2,7 +2,7 @@
 
 const fs = require('fs')
 const ejs = require('ejs')
-const toro = require('..')
+const shan = require('..')
 const path = require('path')
 const jade = require('jade')
 const assert = require('assert')
@@ -10,7 +10,7 @@ const request = require('supertest')
 
 describe('app.registerViewEngine', function () {
     it('should works with html', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.registerViewEngine({
             name: 'view',
@@ -51,7 +51,7 @@ describe('app.registerViewEngine', function () {
     })
 
     it('should works with jade', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.registerViewEngine({
             name: 'view',
@@ -79,7 +79,7 @@ describe('app.registerViewEngine', function () {
     })
 
     it('should works with ejs', function () {
-        let app = toro()
+        let app = shan()
 
         app.registerViewEngine({
             name: 'view',

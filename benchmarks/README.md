@@ -1,41 +1,43 @@
+
 ## info
 
-    Time:       Mon Aug 17 2015 08:35:40 GMT-0400 (EDT)
+    Time:       Wed Aug 19 2015 23:25:39 GMT+0800 (HKT)
     Machine:    darwin, x64, Intel(R) Core(TM) i7-3720QM CPU @ 2.60GHz x 8
     Nodejs:     2.5.0
     V8:         4.2.77.21
 
 ## note
 
-* All tests use `bluebird` as Promise polyfill
+* all tests use `Bluebird` as Promise polyfill
+* all tests with async-await function will be transfered to `Bluebird.coroutine` by babeljs
 
 ## bench middleware
 
-use `wrk` to test the `Requests/sec : avg_latency/req` for 0, 20, 40, 60, 80, 100 noop middleware.
+use `wrk` to test the `Requests/sec : avg_latency/req` for 0, 25, 50, 75, 100 noop middleware.
 
-| filename | 0 | 20 | 40 | 60 | 80 | 100 |
-|:---------|--:|---:|---:|---:|---:|----:|
-| koa/async-await.js | 6972.91 : 6.61ms | 2086.36 : 22.15ms | 1162.60 : 39.35ms | 834.96 : 54.86ms | 596.01 : 76.26ms | 389.54 : 118.64ms |
-| koa/async-return.js | 6883.40 : 6.76ms | 2016.99 : 23.07ms | 1104.22 : 41.71ms | 802.99 : 57.17ms | 542.39 : 83.76ms | 409.71 : 111.45ms |
-| koa/generator-delegate.js | 8891.71 : 5.23ms | 8225.20 : 5.66ms | 7752.60 : 6.01ms | 7452.85 : 6.24ms | 7074.87 : 6.59ms | 6745.61 : 6.91ms |
-| koa/generator-yield.js | 8982.33 : 5.17ms | 5788.11 : 8.05ms | 4433.55 : 10.45ms | 3409.14 : 13.50ms | 2872.73 : 16.20ms | 2354.71 : 19.75ms |
-| toro-use-koa/async-await.js | 8801.83 : 5.31ms | 2609.60 : 17.62ms | 1468.35 : 30.96ms | 906.62 : 51.19ms | 669.27 : 71.28ms | 517.78 : 88.77ms |
-| toro-use-koa/async-return.js | 8799.87 : 5.25ms | 2511.19 : 18.42ms | 1531.12 : 30.47ms | 1016.99 : 45.84ms | 794.25 : 58.14ms | 534.00 : 86.28ms |
-| toro-use-koa/generator-delegate.js | 9743.13 : 4.79ms | 5283.74 : 8.84ms | 3439.56 : 13.54ms | 2918.70 : 15.89ms | 2170.25 : 21.35ms | 1973.61 : 23.52ms |
-| toro-use-koa/generator-return.js | 9714.34 : 4.77ms | 5119.12 : 9.09ms | 3623.07 : 12.83ms | 2724.05 : 16.99ms | 2216.04 : 20.98ms | 1923.38 : 24.10ms |
-| toro-use-koa/generator-yield.js | 9681.10 : 4.80ms | 5588.43 : 8.37ms | 4071.32 : 11.38ms | 3143.64 : 14.73ms | 2292.75 : 20.21ms | 2089.46 : 22.23ms |
-| toro/async-await.js | 8599.34 : 5.37ms | 2911.46 : 15.95ms | 1815.50 : 25.52ms | 1147.82 : 40.57ms | 836.31 : 56.01ms | 638.39 : 71.59ms |
-| toro/async-return.js | 8741.74 : 5.29ms | 2779.02 : 16.68ms | 1659.46 : 27.75ms | 1116.22 : 41.91ms | 797.10 : 60.02ms | 646.61 : 72.33ms |
-| toro/function-return.js | 10163.03 : 4.59ms | 10181.40 : 4.56ms | 8585.36 : 5.42ms | 9095.74 : 5.10ms | 9147.73 : 5.08ms | 8599.13 : 5.41ms |
-| toro/generator-return.js | 10276.32 : 4.54ms | 9125.59 : 5.09ms | 7834.62 : 5.94ms | 7206.00 : 6.48ms | 6748.75 : 6.91ms | 6269.62 : 7.40ms |
-| toro/generator-yield.js | 10124.11 : 4.59ms | 8646.40 : 5.37ms | 7271.22 : 6.40ms | 6409.17 : 7.27ms | 5595.38 : 8.27ms | 5144.71 : 9.06ms |
+| filename | 0 | 25 | 50 | 75 | 100 |
+|:---------|--:|---:|---:|---:|----:|
+| koa/async-await.js | 7515.96 : 6.15ms | 3785.48 : 12.32ms | 2410.21 : 19.22ms | 1894.07 : 24.50ms | 1439.56 : 32.22ms |
+| koa/async-return.js | 7619.72 : 6.07ms | 3886.98 : 11.90ms | 2594.98 : 17.87ms | 2034.27 : 22.59ms | 1545.26 : 29.88ms |
+| koa/generator-delegate.js | 7961.53 : 8.30ms | 7473.10 : 6.28ms | 7484.19 : 6.22ms | 7028.49 : 6.62ms | 6569.28 : 7.08ms |
+| koa/generator-yield.js | 8537.10 : 5.46ms | 5290.52 : 8.76ms | 3810.03 : 12.16ms | 2975.22 : 15.53ms | 2248.73 : 20.66ms |
+| shan-use-koa/async-await.js | 10001.36 : 4.69ms | 6192.96 : 7.54ms | 4681.08 : 9.99ms | 3736.98 : 12.57ms | 2811.10 : 16.68ms |
+| shan-use-koa/async-return.js | 9977.98 : 4.69ms | 6109.42 : 7.58ms | 4871.48 : 9.66ms | 4036.52 : 11.59ms | 3375.68 : 13.81ms |
+| shan-use-koa/generator-delegate.js | 9588.13 : 4.88ms | 4622.90 : 10.00ms | 3010.55 : 15.41ms | 2179.74 : 21.39ms | 1879.39 : 24.69ms |
+| shan-use-koa/generator-return.js | 9508.37 : 4.90ms | 4654.07 : 10.03ms | 2967.17 : 15.64ms | 2194.41 : 21.14ms | 1761.63 : 26.36ms |
+| shan-use-koa/generator-yield.js | 9508.59 : 4.90ms | 4855.56 : 9.61ms | 3364.91 : 13.81ms | 2511.70 : 18.26ms | 2178.90 : 21.26ms |
+| shan/async-await.js | 9826.44 : 4.75ms | 7398.40 : 6.26ms | 6265.27 : 7.47ms | 5261.37 : 8.96ms | 4749.38 : 9.88ms |
+| shan/async-return.js | 9954.16 : 4.70ms | 8137.10 : 5.69ms | 7147.01 : 6.57ms | 6334.85 : 7.41ms | 5662.15 : 8.31ms |
+| shan/function-return.js | 10022.19 : 4.67ms | 9787.70 : 4.75ms | 9202.55 : 5.06ms | 8902.77 : 5.22ms | 8113.21 : 5.73ms |
+| shan/generator-return.js | 9885.69 : 4.69ms | 8792.12 : 5.27ms | 7460.42 : 6.24ms | 6788.25 : 6.87ms | 6137.73 : 7.57ms |
+| shan/generator-yield.js | 10212.07 : 4.54ms | 7854.83 : 5.92ms | 6578.94 : 7.06ms | 5731.86 : 8.13ms | 4976.90 : 9.28ms |
 
 ## bench early-stop
 
-use `wrk` to test the `Requests/sec : avg_latency/req` for 0, 20, 40, 60, 80, 100 noop middleware.
+use `wrk` to test the `Requests/sec : avg_latency/req` for 0, 25, 50, 75, 100 noop middleware.
 
-| filename | 0 | 20 | 40 | 60 | 80 | 100 |
-|:---------|--:|---:|---:|---:|---:|----:|
-| koa/generator.js | 8806.29 : 5.29ms | 8559.20 : 5.42ms | 8307.33 : 5.61ms | 8052.47 : 5.78ms | 7871.88 : 5.91ms | 7572.32 : 6.18ms |
-| toro-use-koa/generator.js | 9720.78 : 4.79ms | 9544.96 : 4.87ms | 9678.40 : 4.81ms | 9562.14 : 4.89ms | 9561.54 : 4.85ms | 9819.61 : 4.73ms |
-| toro/function.js | 10245.97 : 4.54ms | 10489.15 : 4.46ms | 10150.45 : 4.59ms | 10231.33 : 4.55ms | 10360.54 : 4.49ms | 10607.75 : 4.38ms |
+| filename | 0 | 25 | 50 | 75 | 100 |
+|:---------|--:|---:|---:|---:|----:|
+| koa/generator.js | 8553.60 : 5.44ms | 8348.27 : 5.60ms | 8044.54 : 5.79ms | 7769.77 : 6.00ms | 7512.47 : 6.21ms |
+| shan-use-koa/generator.js | 9596.25 : 4.85ms | 9536.34 : 4.88ms | 9618.20 : 4.83ms | 9649.85 : 4.83ms | 9526.85 : 4.87ms |
+| shan/function.js | 10438.08 : 4.45ms | 10412.99 : 4.46ms | 10073.94 : 4.63ms | 10150.63 : 4.59ms | 10017.55 : 4.69ms |

@@ -1,65 +1,26 @@
 
-# koola
+# Shan
 
 Web framework based on koa and Promise.
 
 ## Installation
 
 ```
-$ npm install toro
+$ npm install shan
 ```
 
 ## Usage
 
 ```js
-import toro from 'toro'
+import shan from 'shan'
 
-let app = toro()
+let app = shan()
 
 app.use(next => async function (context) {
     context.body = 'Nice to see you :)'
 })
 
 app.listen(5555)
-```
-
-## Usage
-
-```js
-
-app.useStatic(s => {
-    s.serveDir('public/js', '/js')
-    s.serveFile('public/favicon.ico', '/favicon.ico')
-})
-
-app.use(next => async function (context) {
-    // ...
-    await next(context)
-    // ...
-})
-
-// be able to use all koa middleware
-app.useKoa(function* (next) {
-    // ...
-    yield next
-    // ...
-})
-
-app.useRouter((r, next) =>
-    r.get(['/', '/home', '/index'], function (context) {
-        context.body = 'home page!'
-    })
-    r.post('/some_url', app.async(function* (context) {
-        yield somePromise
-        yield somePromise
-        context.body = 'after async operation'
-    }))
-    r.default(function (context) {
-        context.throw(404, 'not found')
-    })
-)
-
-app.listen(3333)
 ```
 
 ## Middleware
@@ -79,11 +40,11 @@ app.use(function (next, app) {
 
 ## API
 
-#### `toro()`
+#### `shan()`
 
 ```js
-let toro = require('toro')
-let app = toro()
+let shan = require('shan')
+let app = shan()
 ```
 ---
 #### `app.use`
@@ -173,41 +134,6 @@ app.useTimeout(1000, function (context, promise) {
 ```
 ---
 #### `app.register`
-
-plugins: diff with middleware:
-    middleware will control the flow
-    plugin will extend the context's parse or serve function
-
-a consist way to register parse or serve functions.
-
-parse functions
-
-serve functions
-
-```js
-app.register({
-    name: 'json',
-    parse: function (context, ...args) {
-        return 'result'
-    }
-})
-
-app.register({
-    name: 'my-serve-function',
-    serve: function (context, ...args) {
-        return // a promise if async
-    }
-})
-
-app.use(next => app.async(function* (context) {
-    // context.parse will always return a Promise instance
-    let result = yield context.parse('my-name', ...args)
-
-    yield context.serve('my-serve-function', ...args)
-}))
-
-
-```
 
 #### `app.async`
 

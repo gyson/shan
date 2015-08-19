@@ -1,6 +1,6 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
@@ -8,7 +8,7 @@ describe('app.useRouter', function () {
 
     // TODO: need more
 
-    let app = toro()
+    let app = shan()
 
     app.useRouter(function (r, next) {
         r.get('/', function (context) {

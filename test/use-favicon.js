@@ -1,12 +1,12 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.useFavicon', function () {
     it('should be able to serve favicon.ico', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.useFavicon(new Buffer('hello'))
 

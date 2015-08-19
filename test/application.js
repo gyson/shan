@@ -1,12 +1,12 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.use', function () {
     it('should compose middleware', function (done) {
-        let app = toro()
+        let app = shan()
         let calls = []
 
         app.use(function (next) {
@@ -52,7 +52,7 @@ describe('app.use', function () {
 
 describe('app.register', function () {
     it('should be able to register parse function', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.register({
             name: 'cool',
@@ -74,7 +74,7 @@ describe('app.register', function () {
     })
 
     it('should be able to register serve function', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.register({
             name: 'cool',
@@ -96,7 +96,7 @@ describe('app.register', function () {
     })
 
     it('should be able to register multiple plugins', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.register([
             {
@@ -129,7 +129,7 @@ describe('app.register', function () {
 
 describe('app.callback', function () {
     it('should return handler function', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.use(function (next) {
             return function (context) {
@@ -148,7 +148,7 @@ describe('app.callback', function () {
 
 describe('app.compose', function () {
     it('should compose multiple middleware functions', function (done) {
-        let app = toro()
+        let app = shan()
         let call = []
 
         app.use(app.compose(function (it) {
@@ -186,7 +186,7 @@ describe('app.compose', function () {
     })
 
     it('should be able to coporate with other middleware', function (done) {
-        let app = toro()
+        let app = shan()
 
         let auth = app.compose(function (it) {
             it.use(function (next) {
@@ -224,7 +224,7 @@ describe('app.compose', function () {
 
 describe('app.async', function () {
     it('should ensure function always return a Promise', function (done) {
-        let asyncFn = toro.async(function () {
+        let asyncFn = shan.async(function () {
             return 'okk'
         })
 
@@ -239,7 +239,7 @@ describe('app.async', function () {
     })
 
     it('should return a rejected Promise if fn throws', function (done) {
-        let asyncFn = toro.async(function () {
+        let asyncFn = shan.async(function () {
             throw new Error('hello')
         })
 
@@ -250,7 +250,7 @@ describe('app.async', function () {
     })
 
     it('should convert generator function to async function', function (done) {
-        let asyncFn = toro.async(function* (bar) {
+        let asyncFn = shan.async(function* (bar) {
             let foo = yield Promise.resolve('foo')
 
             assert.equal(foo, 'foo')

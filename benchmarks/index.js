@@ -17,15 +17,15 @@ console.log(`
 
 ## note
 
-* all tests use \`bluebird\` as Promise polyfill
-* all tests with async-await function using babeljs`)
+* all tests use \`Bluebird\` as Promise polyfill
+* all tests with async-await function will be transfered to \`Bluebird.coroutine\` by babeljs`)
 
 const PORT = 5555
 
 function run(filename, mw) {
 
     let babel = /async/.test(path.basename(filename))
-        ? `require("babel/register")({ stage: 1 });`
+        ? `require("babel/register")({ stage: 1, optional: ["bluebirdCoroutines"] });`
         : ''
 
     // bench script from koajs/koa
@@ -48,13 +48,13 @@ function run(filename, mw) {
 }
 
 function bench(filelist) {
-    console.log('| filename | 0 | 20 | 40 | 60 | 80 | 100 |')
-    console.log('|:---------|--:|---:|---:|---:|---:|----:|')
+    console.log('| filename | 0 | 25 | 50 | 75 | 100 |')
+    console.log('|:---------|--:|---:|---:|---:|----:|')
 
     for (let filename of filelist) {
         process.stdout.write('| ' + filename.split(path.sep).slice(-2).join('/'))
 
-        for (let i of [0, 20, 40, 60, 80, 100]) {
+        for (let i of [0, 25, 50, 75, 100]) {
             let output = run(filename, i).toString()
 
             let requestsPerSecond
@@ -79,7 +79,7 @@ function bench(filelist) {
 console.log(`
 ## bench middleware
 
-use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 20, 40, 60, 80, 100 noop middleware.
+use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual cases
@@ -88,7 +88,7 @@ bench(glob.sync(path.join(__dirname, 'middleware/*/*')))
 console.log(`
 ## bench early-stop
 
-use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 20, 40, 60, 80, 100 noop middleware.
+use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual case

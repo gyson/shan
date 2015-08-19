@@ -1,11 +1,11 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.useTimeout', function () {
-    let app = toro()
+    let app = shan()
 
     app.useTimeout(20, function (context, promise) {
         context.body = 'timeout'

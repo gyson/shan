@@ -1,14 +1,14 @@
 'use strict';
 
-var toro = require('../../..')
-var app = toro()
+var shan = require('../../..')
+var app = shan()
 
 var n = parseInt(process.env.MW, 10)
 var port = parseInt(process.env.PORT, 10)
 
 while (n--) {
     app.useKoa(async function (next) {
-        await next
+        return next
     })
 }
 

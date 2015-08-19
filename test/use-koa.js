@@ -1,12 +1,12 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.useKoa', function () {
     it('should be able to `yield* next`, `yield next`, `await next`', function (done) {
-        let app = toro()
+        let app = shan()
         let calls = []
 
         app.useKoa(function* (next) {
@@ -60,7 +60,7 @@ describe('app.useKoa', function () {
     })
 
     it('should catch error from next middleware', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.useKoa(function* (next) {
             try {
@@ -106,7 +106,7 @@ describe('app.useKoa', function () {
     })
 
     it('should got value from next layer', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.useKoa(function* (next) {
             assert.equal(yield next, 123)

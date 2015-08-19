@@ -1,8 +1,10 @@
 'use strict';
 
-const toro = require('../..')
+const shan = require('../..')
 
-let app = toro()
+let app = shan()
+
+app.useFavicon()
 
 app.use(function (next) {
     return function (context) {

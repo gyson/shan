@@ -1,13 +1,13 @@
 'use strict';
 
 const fs = require('fs')
-const toro = require('..')
+const shan = require('..')
 const path = require('path')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.useStatic', function () {
-    let app = toro()
+    let app = shan()
 
     app.useStatic(function (s) {
         s.serveDir(path.join(__dirname, 'views'), '/views')

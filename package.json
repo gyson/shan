@@ -1,7 +1,7 @@
 {
-  "name": "toro",
+  "name": "shan",
   "version": "0.0.1",
-  "description": "",
+  "description": "Shan web app framework",
   "main": "lib/application.js",
   "scripts": {
     "test": "mocha"

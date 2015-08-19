@@ -1,23 +1,23 @@
 'use strict';
 
-var toro = require('../../..')
-var app = toro()
+var shan = require('../../..')
+var app = shan()
 
 var n = parseInt(process.env.MW, 10)
 var port = parseInt(process.env.PORT, 10)
 
 while (n--) {
     app.use(function (next) {
-        return app.async(function* (context) {
+        return async function (context) {
             return next(context)
-        })
+        }
     })
 }
 
 app.use(function (next){
-    return app.async(function* (c) {
+    return async function (c) {
         c.response.body = 'Hello wrold'
-    })
+    }
 })
 
 app.listen(port)

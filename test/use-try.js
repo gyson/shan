@@ -1,13 +1,13 @@
 'use strict';
 
-const toro = require('..')
+const shan = require('..')
 const assert = require('assert')
 const request = require('supertest')
 
 
 describe('app.useTry', function () {
     it('should be able to do `catch`', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.useTry({
             catch(context, error) {
@@ -36,7 +36,7 @@ describe('app.useTry', function () {
     })
 
     it('should be able to do `finally`', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.use(function (next) {
             return function (context) {
@@ -65,7 +65,7 @@ describe('app.useTry', function () {
     })
 
     it('should be able to do `catch` and `finally`', function (done) {
-        let app = toro()
+        let app = shan()
 
         app.use(function (next) {
             return function (context) {
