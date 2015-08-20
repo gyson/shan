@@ -79,17 +79,27 @@ function bench(filelist) {
 console.log(`
 ## bench middleware
 
-use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 25, 50, 75, 100 noop middleware.
+use \`wrk\` to test the Requests/sec (higher is better) : avg_latency/req (lower is better) for 0, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual cases
 bench(glob.sync(path.join(__dirname, 'middleware/*/*')))
 
 console.log(`
+* this suite is to bench overhead of middleware
+* the result shows that the performance of middleware could be improved with shan's middleware
+`)
+
+console.log(`
 ## bench early-stop
 
-use \`wrk\` to test the \`Requests/sec : avg_latency/req\` for 0, 25, 50, 75, 100 noop middleware.
+use \`wrk\` to test the Requests/sec (higher is better) : avg_latency/req (lower is better) for 0, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual case
 bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
+
+console.log(`
+* this suite is to bench overhead of koa's lazy evaluated generator or wrapper
+* the result shows that overhead the lazy evaluated generator or wrapper is very little
+`)

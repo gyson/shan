@@ -9,36 +9,21 @@ Web framework based on koa and Promise.
 $ npm install shan
 ```
 
-## Usage
+## Note
 
-```js
-import shan from 'shan'
-
-let app = shan()
-
-app.use(next => async function (context) {
-    context.body = 'Nice to see you :)'
-})
-
-app.listen(5555)
-```
+* develop and test with iojs 2.5
+* should work with node 0.12.x and iojs 1.x, 2.x, 3.x (but did not test yet)
+* documents are in progress and more is coming in near soon
 
 ## Middleware
 
-```js
-app.use(function (next, app) {
-    return async function (context) {
+TODO
 
-        // before
+## Plugin
 
-        await next(context)
+TODO
 
-        // after
-    }
-})
-```
-
-## API
+## API (in progress)
 
 #### `shan()`
 
@@ -52,13 +37,39 @@ let app = shan()
 ```js
 app.use(function (next) {
     return function (context) {
-        // do before
+        // before
         return next(context).then(function () {
-            // do after
+            // after
         })
     }
 })
 
+app.use(function (next) {
+    // you may need babel to use async function
+    return async function (context) {
+        // before
+        await next(context)
+        // after
+    }
+})
+
+app.use(function (next) {
+    // use `co` lib
+    return co.wrap(function* (context)) {
+        // before
+        yield next(context)
+        // after
+    }
+})
+
+app.use(function (next) {
+    // use `bluebird` lib
+    return bluebird.coroutine(function* (context)) {
+        // before
+        yield next(context)
+        // after
+    }
+})
 ```
 ---
 #### `app.useKoa`
@@ -67,22 +78,22 @@ support all koa middleware
 
 ```js
 app.useKoa(function* (next) {
-    // ...
+    // before
     yield next
-    // ...
+    // after
 })
 
 app.useKoa(function* (next) {
-    // ...
+    // before
     yield* next
-    // ...
+    // after
 })
 
 // you may need babel.js for ES7 async function
 app.useKoa(async function (next) {
-    // ...
+    // before
     await next
-    // ...
+    // after
 })
 ```
 ---
@@ -93,18 +104,19 @@ app.useKoa(async function (next) {
 
 ```js
 app.useRouter(function (r, next) {
-    r.get('/', function (c) {
-
+    r.get('/', function (context) {
+        context.body = 'this is index page'
     })
-    r.get('/okk', function* (c) {
-        yield next(c)
+    r.get('/okk', co.wrap(function* (context) {
+        yield next(context)
+    }))
+    r.get('/okk2', async function (context) {
+        //
+        await next(context)
     })
-    r.get('/okk2', async function (c) {
-
-    })
-    r.default(function (c) {
+    r.default(function (context) {
         // not match above
-        return next(c)
+        return next(context)
     })
 })
 ```
@@ -112,12 +124,21 @@ app.useRouter(function (r, next) {
 #### `app.useLogger`
 
 ```js
-app.useLogger(c => `> ${ c.request.method } ${ c.request.path }`)
+app.useLogger(context => `> ${ context.method } ${ context.path }`)
+```
+which is equivalent to
+```js
+app.use(function (next) {
+    return function (context) {
+        console.log(`> ${ context.method } ${ context.path }`)
+        return next(context)
+    }
+})
 ```
 ---
 #### `app.useFavicon`
 
-if no path provided, it will use an ugly.
+if no path provided, it will use an default favicion.ico.
 
 ```js
 app.useFavicon('path/to/favicon.ico', { maxAge: '1h' })
@@ -129,17 +150,20 @@ request timeout middleware
 
 ```js
 app.useTimeout(1000, function (context, promise) {
-    // handle it
+    console.log(`> ${context.method} ${context.path} is timeout`)
+    return promise // still wait for response
 })
 ```
 ---
-#### `app.register`
 
 #### `app.async`
 
-convert generator function to async function.
+convert function to async function.
+* if function is generator function, function will be converted to async function using `blurbird.coroutine`.
+* otherwise, function will be wrapped and ensured that it will always return a Promise. Normal return will return a resolved Promise. Exception throw will return a rejected Promise.
 
 ```js
+// usage with middleware
 app.use(next => app.async(function* (context) {
     // ...
     yield next(context)

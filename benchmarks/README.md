@@ -1,7 +1,7 @@
 
 ## info
 
-    Time:       Wed Aug 19 2015 23:25:39 GMT+0800 (HKT)
+    Time:       Thu Aug 20 2015 11:59:51 GMT+0800 (HKT)
     Machine:    darwin, x64, Intel(R) Core(TM) i7-3720QM CPU @ 2.60GHz x 8
     Nodejs:     2.5.0
     V8:         4.2.77.21
@@ -13,31 +13,39 @@
 
 ## bench middleware
 
-use `wrk` to test the `Requests/sec : avg_latency/req` for 0, 25, 50, 75, 100 noop middleware.
+use `wrk` to test the Requests/sec (higher is better) : avg_latency/req (lower is better) for 0, 25, 50, 75, 100 noop middleware.
 
 | filename | 0 | 25 | 50 | 75 | 100 |
 |:---------|--:|---:|---:|---:|----:|
-| koa/async-await.js | 7515.96 : 6.15ms | 3785.48 : 12.32ms | 2410.21 : 19.22ms | 1894.07 : 24.50ms | 1439.56 : 32.22ms |
-| koa/async-return.js | 7619.72 : 6.07ms | 3886.98 : 11.90ms | 2594.98 : 17.87ms | 2034.27 : 22.59ms | 1545.26 : 29.88ms |
-| koa/generator-delegate.js | 7961.53 : 8.30ms | 7473.10 : 6.28ms | 7484.19 : 6.22ms | 7028.49 : 6.62ms | 6569.28 : 7.08ms |
-| koa/generator-yield.js | 8537.10 : 5.46ms | 5290.52 : 8.76ms | 3810.03 : 12.16ms | 2975.22 : 15.53ms | 2248.73 : 20.66ms |
-| shan-use-koa/async-await.js | 10001.36 : 4.69ms | 6192.96 : 7.54ms | 4681.08 : 9.99ms | 3736.98 : 12.57ms | 2811.10 : 16.68ms |
-| shan-use-koa/async-return.js | 9977.98 : 4.69ms | 6109.42 : 7.58ms | 4871.48 : 9.66ms | 4036.52 : 11.59ms | 3375.68 : 13.81ms |
-| shan-use-koa/generator-delegate.js | 9588.13 : 4.88ms | 4622.90 : 10.00ms | 3010.55 : 15.41ms | 2179.74 : 21.39ms | 1879.39 : 24.69ms |
-| shan-use-koa/generator-return.js | 9508.37 : 4.90ms | 4654.07 : 10.03ms | 2967.17 : 15.64ms | 2194.41 : 21.14ms | 1761.63 : 26.36ms |
-| shan-use-koa/generator-yield.js | 9508.59 : 4.90ms | 4855.56 : 9.61ms | 3364.91 : 13.81ms | 2511.70 : 18.26ms | 2178.90 : 21.26ms |
-| shan/async-await.js | 9826.44 : 4.75ms | 7398.40 : 6.26ms | 6265.27 : 7.47ms | 5261.37 : 8.96ms | 4749.38 : 9.88ms |
-| shan/async-return.js | 9954.16 : 4.70ms | 8137.10 : 5.69ms | 7147.01 : 6.57ms | 6334.85 : 7.41ms | 5662.15 : 8.31ms |
-| shan/function-return.js | 10022.19 : 4.67ms | 9787.70 : 4.75ms | 9202.55 : 5.06ms | 8902.77 : 5.22ms | 8113.21 : 5.73ms |
-| shan/generator-return.js | 9885.69 : 4.69ms | 8792.12 : 5.27ms | 7460.42 : 6.24ms | 6788.25 : 6.87ms | 6137.73 : 7.57ms |
-| shan/generator-yield.js | 10212.07 : 4.54ms | 7854.83 : 5.92ms | 6578.94 : 7.06ms | 5731.86 : 8.13ms | 4976.90 : 9.28ms |
+| koa/async-await.js | 7621.46 : 6.12ms | 3591.31 : 12.68ms | 2558.14 : 18.48ms | 1934.58 : 24.29ms | 1599.80 : 28.79ms |
+| koa/async-return.js | 7856.89 : 5.90ms | 3795.23 : 12.40ms | 2627.65 : 17.73ms | 1838.79 : 28.26ms | 1631.36 : 29.23ms |
+| koa/generator-delegate.js | 8458.68 : 5.55ms | 8171.34 : 5.67ms | 7412.53 : 6.17ms | 6879.10 : 6.81ms | 6747.34 : 6.89ms |
+| koa/generator-yield.js | 8819.87 : 5.27ms | 5310.40 : 8.92ms | 3911.10 : 11.89ms | 3163.91 : 14.58ms | 2299.50 : 20.85ms |
+| shan-use-koa/async-await.js | 9498.85 : 4.99ms | 6402.39 : 7.32ms | 4789.89 : 9.46ms | 3484.49 : 13.94ms | 2920.78 : 16.02ms |
+| shan-use-koa/async-return.js | 9699.35 : 4.77ms | 6322.94 : 7.53ms | 5188.22 : 9.09ms | 4275.46 : 10.94ms | 3394.07 : 14.11ms |
+| shan-use-koa/generator-delegate.js | 9303.97 : 5.09ms | 4885.10 : 9.54ms | 3209.21 : 14.29ms | 2242.13 : 21.14ms | 1988.25 : 23.32ms |
+| shan-use-koa/generator-return.js | 9638.25 : 4.84ms | 4500.18 : 10.47ms | 3044.30 : 15.44ms | 2286.90 : 20.24ms | 1843.05 : 25.28ms |
+| shan-use-koa/generator-yield.js | 9389.41 : 5.04ms | 5269.69 : 8.82ms | 3555.59 : 13.05ms | 2519.57 : 18.74ms | 2146.32 : 21.53ms |
+| shan/async-await.js | 9740.76 : 4.74ms | 7440.76 : 6.44ms | 6028.63 : 7.94ms | 5715.52 : 8.21ms | 4837.64 : 9.59ms |
+| shan/async-return.js | 9196.35 : 5.15ms | 8229.45 : 5.62ms | 7305.18 : 6.42ms | 6350.48 : 7.51ms | 5981.71 : 7.79ms |
+| shan/function-return.js | 10366.42 : 4.47ms | 9604.43 : 4.96ms | 9091.53 : 5.17ms | 8828.20 : 5.27ms | 8111.35 : 5.57ms |
+| shan/generator-return.js | 9746.44 : 4.85ms | 8634.52 : 5.38ms | 7885.36 : 5.89ms | 6607.08 : 7.13ms | 6363.35 : 7.36ms |
+| shan/generator-yield.js | 10135.47 : 4.58ms | 7869.62 : 6.07ms | 6743.35 : 7.05ms | 6069.84 : 7.65ms | 5228.73 : 8.70ms |
+
+* this suite is to bench overhead of middleware
+* the result shows that the performance of middleware could be improved with shan's middleware
+
 
 ## bench early-stop
 
-use `wrk` to test the `Requests/sec : avg_latency/req` for 0, 25, 50, 75, 100 noop middleware.
+use `wrk` to test the Requests/sec (higher is better) : avg_latency/req (lower is better) for 0, 25, 50, 75, 100 noop middleware.
 
 | filename | 0 | 25 | 50 | 75 | 100 |
 |:---------|--:|---:|---:|---:|----:|
-| koa/generator.js | 8553.60 : 5.44ms | 8348.27 : 5.60ms | 8044.54 : 5.79ms | 7769.77 : 6.00ms | 7512.47 : 6.21ms |
-| shan-use-koa/generator.js | 9596.25 : 4.85ms | 9536.34 : 4.88ms | 9618.20 : 4.83ms | 9649.85 : 4.83ms | 9526.85 : 4.87ms |
-| shan/function.js | 10438.08 : 4.45ms | 10412.99 : 4.46ms | 10073.94 : 4.63ms | 10150.63 : 4.59ms | 10017.55 : 4.69ms |
+| koa/async.js | 7619.24 : 6.19ms | 7869.06 : 5.87ms | 7855.51 : 5.88ms | 7397.57 : 6.44ms | 7571.47 : 6.19ms |
+| koa/generator.js | 8844.58 : 5.24ms | 8292.78 : 5.67ms | 7979.59 : 5.87ms | 7858.46 : 5.93ms | 7719.16 : 6.01ms |
+| shan-use-koa/generator.js | 9308.21 : 5.07ms | 9701.11 : 4.81ms | 9609.96 : 4.83ms | 9339.53 : 5.08ms | 9142.79 : 5.20ms |
+| shan/function.js | 10465.64 : 4.42ms | 9342.53 : 4.97ms | 10160.73 : 4.67ms | 10611.69 : 4.38ms | 10443.17 : 4.44ms |
+
+* this suite is to bench overhead of koa's lazy evaluated generator or wrapper
+* the result shows that overhead the lazy evaluated generator or wrapper is very little
