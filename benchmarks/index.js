@@ -48,13 +48,15 @@ function run(filename, mw) {
 }
 
 function bench(filelist) {
-    console.log('| filename | 0 | 25 | 50 | 75 | 100 |')
+    console.log('| filename | 1 | 25 | 50 | 75 | 100 |')
     console.log('|:---------|--:|---:|---:|---:|----:|')
 
     for (let filename of filelist) {
-        process.stdout.write('| ' + filename.split(path.sep).slice(-2).join('/'))
+        let name = filename.split(path.sep).slice(-2).join('/')
+        let link = 'middleware/' + name
+        process.stdout.write(`| [${name}](${link})`)
 
-        for (let i of [0, 25, 50, 75, 100]) {
+        for (let i of [0, 24, 49, 74, 99]) {
             let output = run(filename, i).toString()
 
             let requestsPerSecond
@@ -85,6 +87,8 @@ use \`wrk\` to test the Requests/sec (higher is better) : avg_latency/req (lower
 // modify glob to test individual cases
 bench(glob.sync(path.join(__dirname, 'middleware/*/*')))
 
+// bench(glob.sync(path.join(__dirname, 'middleware/shan-use-koa/generator*')))
+
 console.log(`
 * this suite is to bench overhead of middleware
 * the result shows that the performance of middleware could be improved with shan's middleware
@@ -97,7 +101,7 @@ use \`wrk\` to test the Requests/sec (higher is better) : avg_latency/req (lower
 `)
 
 // modify glob to test individual case
-bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
+// bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
 
 console.log(`
 * this suite is to bench overhead of koa's lazy evaluated generator or wrapper
