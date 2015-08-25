@@ -13,7 +13,7 @@
 
 ## bench middleware
 
-use `wrk` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noop middleware.
+use `wrk` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noop middleware.
 
 | filename | 1 | 25 | 50 | 75 | 100 |
 |:---------|--:|---:|---:|---:|----:|
@@ -38,7 +38,7 @@ use `wrk` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noo
 
 ## bench early-stop
 
-use `wrk` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noop middleware.
+use `wrk` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noop middleware.
 
 | filename | 1 | 25 | 50 | 75 | 100 |
 |:---------|--:|---:|---:|---:|----:|
@@ -49,4 +49,3 @@ use `wrk` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noo
 
 * this suite is to bench overhead of koa's lazy evaluated generator or wrapper
 * the result shows that overhead the lazy evaluated generator or wrapper is very little
-
