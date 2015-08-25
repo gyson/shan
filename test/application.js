@@ -13,7 +13,7 @@ describe('app.use', function () {
             return function (context) {
                 calls.push(1)
                 return next(context).then(function () {
-                    calls.push(6)
+                    calls.push(8)
                 })
             }
         })
@@ -22,29 +22,28 @@ describe('app.use', function () {
             return app.async(function* (context) {
                 calls.push(2)
                 yield next(context)
-                calls.push(5)
+                calls.push(7)
             })
         })
 
-        //
-        // TODO: should test es7 async function here
-        //
-        // app.use(function (next) {
-        //     return async function (context) {
-        //         calls.push(3)
-        //         await next(context)
-        //         calls.push(4)
-        //     }
-        // })
-        //
+        app.useKoa(function* (next) {
+            calls.push(3)
+            yield* next
+            calls.push(6)
+        })
+
+        app.useKoa(function* (next) {
+            calls.push(4)
+            yield next
+            calls.push(5)
+        })
 
         request(app.listen())
             .get('/')
             .expect(404)
             .end(function (err) {
                 if (err) { return done(err) }
-                // assert.deepEqual(calls, [1, 2, 3, 4, 5, 6])
-                assert.deepEqual(calls, [1, 2, 5, 6])
+                assert.deepEqual(calls, [1, 2, 3, 4, 5, 6, 7, 8])
                 done()
             })
     })

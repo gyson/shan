@@ -12,7 +12,7 @@ app.useKoa(function* (next) {
 
 while (n--) {
     app.useKoa(function* (next) {
-        yield next
+        yield* next
     })
 }
 

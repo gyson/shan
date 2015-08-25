@@ -60,19 +60,19 @@ function bench(filelist) {
             let output = run(filename, i).toString()
 
             let requestsPerSecond
-            let requestsAvgLatency
+            // let requestsAvgLatency
 
             output.split('\n').forEach(function (line) {
                 let tokens = line.trim().split(/\s+/)
                 if (tokens[0] === 'Requests/sec:') {
                     requestsPerSecond = tokens[1]
                 }
-                if (tokens[0] === 'Latency') {
-                    requestsAvgLatency = tokens[1]
-                }
+                // if (tokens[0] === 'Latency') {
+                //     requestsAvgLatency = tokens[1]
+                // }
             })
 
-            process.stdout.write(' | ' + requestsPerSecond + ' : ' + requestsAvgLatency)
+            process.stdout.write(' | ' + requestsPerSecond) //+ ' : ' + requestsAvgLatency)
         }
         process.stdout.write(' |\n')
     }
@@ -81,7 +81,7 @@ function bench(filelist) {
 console.log(`
 ## bench middleware
 
-use \`wrk\` to test the Requests/sec (higher is better) : avg_latency/req (lower is better) for 0, 25, 50, 75, 100 noop middleware.
+use \`wrk\` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual cases
@@ -97,11 +97,11 @@ console.log(`
 console.log(`
 ## bench early-stop
 
-use \`wrk\` to test the Requests/sec (higher is better) : avg_latency/req (lower is better) for 0, 25, 50, 75, 100 noop middleware.
+use \`wrk\` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual case
-// bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
+bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
 
 console.log(`
 * this suite is to bench overhead of koa's lazy evaluated generator or wrapper
