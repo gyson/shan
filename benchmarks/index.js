@@ -47,13 +47,13 @@ function run(filename, mw) {
     })
 }
 
-function bench(filelist) {
+function bench(testName, filelist) {
     console.log('| filename | 1 | 25 | 50 | 75 | 100 |')
     console.log('|:---------|--:|---:|---:|---:|----:|')
 
     for (let filename of filelist) {
         let name = filename.split(path.sep).slice(-2).join('/')
-        let link = 'middleware/' + name
+        let link = testName + '/' + name
         process.stdout.write(`| [${name}](${link})`)
 
         for (let i of [0, 24, 49, 74, 99]) {
@@ -81,11 +81,11 @@ function bench(filelist) {
 console.log(`
 ## bench middleware
 
-use \`wrk\` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noop middleware.
+use \`wrk\` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual cases
-bench(glob.sync(path.join(__dirname, 'middleware/*/*')))
+bench('middleware', glob.sync(path.join(__dirname, 'middleware/*/*')))
 
 // bench(glob.sync(path.join(__dirname, 'middleware/shan-use-koa/generator*')))
 
@@ -97,11 +97,11 @@ console.log(`
 console.log(`
 ## bench early-stop
 
-use \`wrk\` to test the Requests/sec (higher is better) for 0, 25, 50, 75, 100 noop middleware.
+use \`wrk\` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noop middleware.
 `)
 
 // modify glob to test individual case
-bench(glob.sync(path.join(__dirname, 'early-stop/*/*')))
+bench('early-stop', glob.sync(path.join(__dirname, 'early-stop/*/*')))
 
 console.log(`
 * this suite is to bench overhead of koa's lazy evaluated generator or wrapper

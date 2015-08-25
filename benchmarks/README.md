@@ -1,7 +1,7 @@
 
 ## info
 
-    Time:       Tue Aug 25 2015 22:26:31 GMT+0800 (HKT)
+    Time:       Tue Aug 25 2015 23:19:18 GMT+0800 (HKT)
     Machine:    darwin, x64, Intel(R) Core(TM) i7-3720QM CPU @ 2.60GHz x 8
     Nodejs:     2.5.0
     V8:         4.2.77.21
@@ -17,20 +17,20 @@ use `wrk` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noo
 
 | filename | 1 | 25 | 50 | 75 | 100 |
 |:---------|--:|---:|---:|---:|----:|
-| [koa-experimental/async-await.js](middleware/koa-experimental/async-await.js) | 7703.09 | 3953.54 | 2624.63 | 2017.40 | 1609.20 |
-| [koa-experimental/async-return.js](middleware/koa-experimental/async-return.js) | 7639.29 | 3913.42 | 2696.13 | 2141.45 | 1660.11 |
-| [koa-experimental/function-return.js](middleware/koa-experimental/function-return.js) | 8166.19 | 5249.16 | 4033.27 | 3209.21 | 2755.45 |
-| [koa-experimental/generator-delegate.js](middleware/koa-experimental/generator-delegate.js) | 7719.83 | 4649.72 | 3370.61 | 2524.54 | 2051.82 |
-| [koa-experimental/generator-yield.js](middleware/koa-experimental/generator-yield.js) | 7838.22 | 3431.04 | 1985.37 | 1453.40 | 1118.69 |
-| [koa/generator-delegate.js](middleware/koa/generator-delegate.js) | 8679.55 | 7550.37 | 7492.78 | 6965.87 | 6593.07 |
-| [koa/generator-yield.js](middleware/koa/generator-yield.js) | 8566.00 | 5398.10 | 3868.01 | 2989.16 | 2331.82 |
-| [shan-use-koa/generator-delegate.js](middleware/shan-use-koa/generator-delegate.js) | 9585.66 | 8947.02 | 8228.38 | 7677.00 | 7201.93 |
-| [shan-use-koa/generator-yield.js](middleware/shan-use-koa/generator-yield.js) | 9656.67 | 5622.08 | 3885.91 | 3128.03 | 2379.56 |
-| [shan/async-await.js](middleware/shan/async-await.js) | 9983.61 | 7656.34 | 6297.74 | 5002.38 | 4834.26 |
-| [shan/async-return.js](middleware/shan/async-return.js) | 9791.17 | 8111.11 | 6999.55 | 5689.89 | 5670.65 |
-| [shan/function-return.js](middleware/shan/function-return.js) | 10256.12 | 9787.27 | 9341.75 | 8859.32 | 8464.14 |
-| [shan/generator-return.js](middleware/shan/generator-return.js) | 10015.69 | 8836.20 | 7647.76 | 6936.15 | 6202.09 |
-| [shan/generator-yield.js](middleware/shan/generator-yield.js) | 10266.88 | 8203.09 | 6562.38 | 5777.46 | 5176.94 |
+| [koa-experimental/async-await.js](middleware/koa-experimental/async-await.js) | 7691.30 | 3818.88 | 2553.01 | 1900.07 | 1493.26 |
+| [koa-experimental/async-return.js](middleware/koa-experimental/async-return.js) | 7690.34 | 3909.07 | 2678.48 | 2100.17 | 1606.11 |
+| [koa-experimental/function-return.js](middleware/koa-experimental/function-return.js) | 8112.06 | 5405.03 | 3894.39 | 3069.75 | 2669.60 |
+| [koa-experimental/generator-delegate.js](middleware/koa-experimental/generator-delegate.js) | 7750.83 | 4723.21 | 3358.07 | 2611.84 | 2141.89 |
+| [koa-experimental/generator-yield.js](middleware/koa-experimental/generator-yield.js) | 7646.67 | 3315.44 | 2038.93 | 1429.14 | 1113.19 |
+| [koa/generator-delegate.js](middleware/koa/generator-delegate.js) | 8354.72 | 7848.09 | 7346.89 | 6979.94 | 6477.27 |
+| [koa/generator-yield.js](middleware/koa/generator-yield.js) | 8681.78 | 5287.58 | 3775.93 | 2967.36 | 2289.50 |
+| [shan-use-koa/generator-delegate.js](middleware/shan-use-koa/generator-delegate.js) | 9607.74 | 8883.48 | 8262.94 | 7677.26 | 7093.03 |
+| [shan-use-koa/generator-yield.js](middleware/shan-use-koa/generator-yield.js) | 9610.01 | 5638.49 | 3903.45 | 3115.34 | 2394.20 |
+| [shan/async-await.js](middleware/shan/async-await.js) | 9884.55 | 7725.82 | 6393.82 | 5061.44 | 4702.09 |
+| [shan/async-return.js](middleware/shan/async-return.js) | 9830.70 | 8193.77 | 6987.98 | 5549.62 | 5639.69 |
+| [shan/function-return.js](middleware/shan/function-return.js) | 10483.58 | 9761.67 | 9376.99 | 9083.26 | 8702.71 |
+| [shan/generator-return.js](middleware/shan/generator-return.js) | 9891.59 | 8952.69 | 7579.17 | 6729.74 | 5918.71 |
+| [shan/generator-yield.js](middleware/shan/generator-yield.js) | 10022.75 | 7744.31 | 6564.01 | 5640.86 | 4968.26 |
 
 * this suite is to bench overhead of middleware
 * the result shows that the performance of middleware could be improved with shan's middleware
@@ -42,10 +42,11 @@ use `wrk` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noo
 
 | filename | 1 | 25 | 50 | 75 | 100 |
 |:---------|--:|---:|---:|---:|----:|
-| [koa-experimental/async.js](middleware/koa-experimental/async.js) | 7601.50 | 7712.52 | 7598.87 | 7471.69 | 7501.12 |
-| [koa/generator.js](middleware/koa/generator.js) | 8698.34 | 8397.70 | 8165.25 | 7966.90 | 7545.09 |
-| [shan-use-koa/generator.js](middleware/shan-use-koa/generator.js) | 9432.46 | 9479.53 | 9085.53 | 8691.06 | 8385.02 |
-| [shan/function.js](middleware/shan/function.js) | 10201.95 | 10246.36 | 10119.25 | 10239.17 | 10200.87 |
+| [koa-experimental/async.js](early-stop/koa-experimental/async.js) | 7570.69 | 7516.71 | 7370.83 | 7382.03 | 7436.93 |
+| [koa/generator.js](early-stop/koa/generator.js) | 8491.52 | 8269.21 | 7975.68 | 7599.20 | 7500.65 |
+| [shan-use-koa/generator.js](early-stop/shan-use-koa/generator.js) | 9642.70 | 9203.93 | 8822.03 | 8559.93 | 8377.58 |
+| [shan/function.js](early-stop/shan/function.js) | 10300.99 | 10186.15 | 9979.97 | 10397.99 | 10344.30 |
 
 * this suite is to bench overhead of koa's lazy evaluated generator or wrapper
 * the result shows that overhead the lazy evaluated generator or wrapper is very little
+
