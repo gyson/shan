@@ -1,10 +1,10 @@
 'use strict';
 
+const os = require('os')
 const path = require('path')
 const glob = require('glob')
 const child = require('child_process')
 
-let os = require('os')
 let cpus = os.cpus()
 
 console.log(`
@@ -23,13 +23,12 @@ console.log(`
 const PORT = 5555
 
 function run(filename, mw) {
-
-    let babel = /async/.test(path.basename(filename))
-        ? `require("babel/register")({ stage: 1, optional: ["bluebirdCoroutines"] });`
-        : ''
-
     // bench script from koajs/koa
-    let cmd = `node -e '${babel} global.Promise = require("bluebird"); require("${filename}")'`
+    let cmd = `node -e ' \
+        require("babel/register")({ stage: 1, optional: ["bluebirdCoroutines"] }); \
+        global.Promise = require("bluebird"); \
+        require("${filename}"); \
+    '`
 
     return child.execSync(`
         MW=${mw} PORT=${PORT} ${cmd} &
@@ -86,8 +85,6 @@ use \`wrk\` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 n
 
 // modify glob to test individual cases
 bench('middleware', glob.sync(path.join(__dirname, 'middleware/*/*')))
-
-// bench(glob.sync(path.join(__dirname, 'middleware/shan-use-koa/generator*')))
 
 console.log(`
 * this suite is to bench overhead of middleware
