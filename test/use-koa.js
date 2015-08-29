@@ -114,4 +114,62 @@ describe('app.useKoa', function () {
             .expect(200)
             .expect('okk', done)
     })
+
+    it('should be able to yield', function (done) {
+        let app = shan()
+
+        app.useKoa(function* () {
+            assert.equal(yield Promise.resolve(123), 123)
+
+            assert.deepEqual(yield {
+                a: Promise.resolve('a'),
+                b: 'b',
+                c: function (cb) {
+                    cb(null, 'c')
+                }
+            }, {
+                a: 'a',
+                b: 'b',
+                c: 'c'
+            })
+
+            assert.deepEqual(yield [1, 2, 3, Promise.resolve(4)], [1, 2, 3, 4])
+
+            let errorYieldNumber = false
+            try {
+                yield 123
+            } catch (e) {
+                errorYieldNumber = true
+            } finally {
+                assert(errorYieldNumber)
+            }
+
+            let errorYieldRejectedPromise = false
+            try {
+                yield Promise.reject(new Error())
+            } catch (e) {
+                errorYieldRejectedPromise = true
+            } finally {
+                assert(errorYieldRejectedPromise)
+            }
+
+            let errorYieldRejectedThunk = false
+            try {
+                yield function (cb) {
+                    cb(new Error())
+                }
+            } catch (e) {
+                errorYieldRejectedThunk = true
+            } finally {
+                assert(errorYieldRejectedThunk)
+            }
+
+            this.body = 'okk'
+        })
+
+        request(app.listen())
+            .get('/')
+            .expect(200)
+            .expect('okk', done)
+    })
 })
