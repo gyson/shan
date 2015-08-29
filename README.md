@@ -121,21 +121,6 @@ app.useRouter(function (r, next) {
 })
 ```
 ---
-#### `app.useLogger`
-
-```js
-app.useLogger(context => `> ${ context.method } ${ context.path }`)
-```
-which is equivalent to
-```js
-app.use(function (next) {
-    return function (context) {
-        console.log(`> ${ context.method } ${ context.path }`)
-        return next(context)
-    }
-})
-```
----
 #### `app.useFavicon`
 
 if no path provided, it will use an default favicion.ico.
