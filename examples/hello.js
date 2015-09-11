@@ -1,23 +1,10 @@
 
-# Shan
-
-koa with Promise-based middleware
-
-## Installation
-
-```
-$ npm install shan
-```
-
-## Usage
-
-You may need `babel-node` to run following code.
-
-```js
-import shan from 'shan'
+import shan from '..'
 import favicon from 'koa-favicon'
 
 let app = shan()
+
+app.useLogger(ctx => `> ${ctx.method} ${ctx.path}`)
 
 app.useKoa(favicon())
 
@@ -30,12 +17,7 @@ app.use(async (ctx, next) => {
 })
 
 app.use(ctx => {
-    ctx.response.body = 'hello'
+    ctx.body = 'hello'
 })
 
 app.listen(4321)
-```
-
-## License
-
-MIT
