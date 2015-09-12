@@ -1,25 +1,23 @@
 'use strict';
 
-const shan = require('..')
+const shan = require('../..')
 const assert = require('assert')
 const request = require('supertest')
 
 describe('app.useTimeout', function () {
     let app = shan()
 
-    app.useTimeout(20, function (context, promise) {
-        context.body = 'timeout'
+    app.useTimeout(20, function (ctx, promise) {
+        ctx.body = 'timeout'
     })
 
-    app.use(function (next) {
-        return function (context) {
-            if (context.path === '/timeout') {
-                return app.thunk(function (cb) {
-                    setTimeout(cb, 40)
-                })
-            } else {
-                context.body = 'ok'
-            }
+    app.use(function (ctx, next) {
+        if (ctx.path === '/timeout') {
+            return new Promise(function (resolve) {
+                setTimeout(resolve, 40)
+            })
+        } else {
+            ctx.body = 'ok'
         }
     })
 

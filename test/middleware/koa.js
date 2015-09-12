@@ -1,6 +1,7 @@
 'use strict';
 
-const shan = require('..')
+const shan = require('../..')
+const async = require('co').wrap
 const assert = require('assert')
 const request = require('supertest')
 
@@ -27,22 +28,18 @@ describe('app.useKoa', function () {
             calls.push(8)
         })
 
-        app.use(function (next) {
-            return function (context) {
-                calls.push(4)
-                return next(context).then(function () {
-                    calls.push(7)
-                })
-            }
-        })
-
-        app.use(function (next) {
-            return app.async(function* (context) {
-                calls.push(5)
-                yield next(context)
-                calls.push(6)
+        app.use(function (ctx, next) {
+            calls.push(4)
+            return next(ctx).then(function () {
+                calls.push(7)
             })
         })
+
+        app.use(async(function* (ctx, next) {
+            calls.push(5)
+            yield next(ctx)
+            calls.push(6)
+        }))
 
         request(app.listen())
             .get('/')
