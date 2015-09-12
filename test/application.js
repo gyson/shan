@@ -51,27 +51,6 @@ describe('app.use', function () {
     })
 })
 
-describe('app.register', function () {
-    it('should works', function (done) {
-        let app = shan()
-
-        app.register(function (app) {
-            app.context.hello = function () {
-                return 'hello'
-            }
-        })
-
-        app.use(function (ctx, next) {
-            ctx.body = ctx.hello()
-        })
-
-        request(app.listen())
-            .get('/')
-            .expect(200, 'hello')
-            .end(done)
-    })
-})
-
 describe('app.callback', function () {
     it('should return handler function', function (done) {
         let app = shan()
