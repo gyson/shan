@@ -86,21 +86,21 @@ use \`wrk\` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 n
 // modify glob to test individual cases
 bench('middleware', glob.sync(path.join(__dirname, 'middleware/*/*')))
 
-console.log(`
-* this suite is to bench overhead of middleware
-* the result shows that the performance of middleware could be improved with shan's middleware
-`)
-
-console.log(`
-## bench early-stop
-
-use \`wrk\` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noop middleware.
-`)
-
-// modify glob to test individual case
-bench('early-stop', glob.sync(path.join(__dirname, 'early-stop/*/*')))
-
-console.log(`
-* this suite is to bench overhead of koa's lazy evaluated generator or wrapper
-* the result shows that overhead the lazy evaluated generator or wrapper is very little
-`)
+// console.log(`
+// * this suite is to bench overhead of middleware
+// * the result shows that the performance of middleware could be improved with shan's middleware
+// `)
+//
+// console.log(`
+// ## bench early-stop
+//
+// use \`wrk\` to test the Requests/sec (higher is better) for 1, 25, 50, 75, 100 noop middleware.
+// `)
+//
+// // modify glob to test individual case
+// bench('early-stop', glob.sync(path.join(__dirname, 'early-stop/*/*')))
+//
+// console.log(`
+// * this suite is to bench overhead of koa's lazy evaluated generator or wrapper
+// * the result shows that overhead the lazy evaluated generator or wrapper is very little
+// `)

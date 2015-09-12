@@ -7,13 +7,13 @@ var n = parseInt(process.env.MW, 10)
 var port = parseInt(process.env.PORT, 10)
 
 while (n--) {
-    app.use(next => async function (context) {
-        return next(context)
+    app.use(async (ctx, next) => {
+        return next(ctx)
     })
 }
 
-app.use(next => async function (c) {
-    c.response.body = 'Hello wrold'
+app.use(async (ctx) => {
+    ctx.response.body = 'Hello wrold'
 })
 
 app.listen(port)
