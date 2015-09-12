@@ -14,8 +14,8 @@ $ npm install shan
 You may need `babel-node` to run following code.
 
 ```js
-import shan from 'shan'
-import favicon from 'koa-favicon'
+const shan = require('shan')
+const favicon = require('koa-favicon')
 
 let app = shan()
 

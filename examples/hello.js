@@ -1,6 +1,7 @@
+'use strict';
 
-import shan from '..'
-import favicon from 'koa-favicon'
+const shan = require('..')
+const favicon = require('koa-favicon')
 
 let app = shan()
 

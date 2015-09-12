@@ -12,6 +12,7 @@
     "babel": "^5.6.14",
     "bluebird": "^2.10.0",
     "glob": "^5.0.14",
+    "koa-favicon": "^1.2.0",
     "mocha": "^2.2.5",
     "supertest": "^1.0.1"
   },

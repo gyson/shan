@@ -1,5 +1,6 @@
+'use strict';
 
-import shan from '..'
+const shan = require('..')
 
 let app = shan()
 
