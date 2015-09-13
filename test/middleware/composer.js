@@ -14,14 +14,24 @@ describe('app.useComposer', function () {
             function (ctx, next) {
                 call.push(1)
                 return next(ctx).then(function () {
-                    call.push(4)
+                    call.push(8)
                 })
             },
             async(function* (ctx, next) {
                 call.push(2)
                 yield next(ctx)
+                call.push(7)
+            }),
+            function* (next) {
                 call.push(3)
-            })
+                yield next
+                call.push(6)
+            },
+            function* (next) {
+                call.push(4)
+                yield* next
+                call.push(5)
+            }
         )
 
         app.use(function (ctx) {
@@ -35,7 +45,7 @@ describe('app.useComposer', function () {
                 if (err) {
                     return done(err)
                 }
-                assert.deepEqual(call, [1, 2, 3, 4])
+                assert.deepEqual(call, [1, 2, 3, 4, 5, 6, 7, 8])
                 done()
             })
     })
