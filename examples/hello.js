@@ -7,7 +7,7 @@ let app = shan()
 
 app.useLogger(ctx => `> ${ctx.method} ${ctx.path}`)
 
-app.useKoa(favicon())
+app.use(favicon())
 
 app.use(async (ctx, next) => {
     let start = Date.now()

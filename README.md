@@ -19,7 +19,7 @@ const favicon = require('koa-favicon')
 
 let app = shan()
 
-app.useKoa(favicon())
+app.use(favicon())
 
 app.use(async (ctx, next) => {
     let start = Date.now()
@@ -39,6 +39,9 @@ app.listen(4321)
 ## About
 
 This is an application inherits from koa but override `app.use` to accept promise-based middleware instead of generator-based middleware.
+
+If generator-based middleware (all koa middleware) is given, then `app.use` will convert it to promise-based middleware implicitly. Therefore,
+you can use any generator-based middleware from koa ecosystem, e.g. `app.use(require('koa-favicon')())`.
 
 ## Promise-based Middleware
 
@@ -85,21 +88,6 @@ app.use(Bluebird.coroutine(function* (ctx, next) {
 ## Utility Middleware
 
 A few utility middleware are included for convenience.
-
-#### Koa Converter Middleware
-
-Convert koa generator-based middleware to promise-based middleware.
-
-You can use any generator-based middleware from koa ecosystem.
-
-```js
-app.useKoa(require('koa-favicon')())
-
-app.useKoa(function* (next) {
-    // ...
-    yield next
-})
-```
 
 #### Logger Middleware
 
