@@ -16,7 +16,7 @@ describe('app.use(route)', function () {
 
     app.use(route('/lalala').use(ctx => { ctx.body = 'lalala' }));
 
-    app.use(route(/^\/level/).use(route('/:id').use(ctx => { ctx.body = 'level ' + ctx.params.id })));
+    app.use(route('/level', {end: false}).use(route('/:id').use(ctx => { ctx.body = 'level ' + ctx.params.id })));
 
     let server = app.listen()
 
